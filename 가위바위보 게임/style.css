@@ -1,0 +1,126 @@
+/* reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+ul {
+  list-style: none;
+}
+
+:root {
+  --crl-primary: hsl(214, 47%, 23%);
+
+  --crl-neutral-100: hsl(0, 0%, 100%);
+  --crl-neutral-900: hsl(0, 0%, 0%);
+
+  --ff-primary: "Kanit", sans-serif;
+
+  --fw-bold: 700;
+  --fw-regular: 400;
+  --fw-light: 100;
+}
+/* general styling */
+html,
+body {
+  height: 100%;
+}
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 5rem;
+  background-color: var(--crl-primary);
+  min-height: 100vh;
+  padding: 1em;
+  font-family: var(--ff-primary);
+  color: var(--crl-neutral-100);
+  font: inherit;
+  font-size: 30px;
+  font-weight: var(--fw-bold);
+  line-height: 1;
+}
+.item {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 130px;
+  aspect-ratio: 1;
+  background: var(--crl-neutral-100);
+  border-radius: 50%;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
+    rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+  filter: brightness(0.8);
+}
+.item:hover {
+  filter: brightness(1.1);
+}
+.item-wrapper {
+  display: none;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: 130px;
+  place-items: center;
+  place-content: center;
+  width: 500px;
+  height: 300px;
+  margin: auto;
+}
+.item:nth-child(1) {
+  border: 10px solid gold;
+  grid-column: 1/-1;
+}
+.item:nth-child(2) {
+  border: 10px solid skyblue;
+}
+.item:nth-child(3) {
+  border: 10px solid rgb(75, 147, 255);
+}
+.item:nth-child(4) {
+  border: 10px solid rgb(255, 110, 255);
+  justify-self: end;
+}
+.item:nth-child(5) {
+  border: 10px solid tomato;
+  justify-self: start;
+}
+
+/* board */
+.board {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 60%;
+  border: 1px solid rgba(255, 255, 255, 0.37);
+  border-radius: 10px;
+  padding: 1em;
+}
+.score {
+  background: var(--crl-neutral-100);
+  color: var(--crl-primary);
+  text-align: center;
+  padding: 0.5em 1.2em;
+  border-radius: 15px;
+}
+.score__body {
+  font-size: 1rem;
+}
+.score__number {
+  font-size: 3rem;
+  letter-spacing: -7px;
+  color: rgb(66, 66, 66);
+}
+
+/* loading */
+.loading {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inset: 0;
+  background: var(--crl-neutral-100);
+}
