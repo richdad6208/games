@@ -21,10 +21,10 @@ const firstWord = {
   },
 };
 
-function printWord(alphabet, choiceButton) {
+function printWord(alphabet) {
   const beforeWord = firstWord.questionWord;
   const afterWord = firstWord.changedWord;
-  const result = checkWord(beforeWord, afterWord, alphabet, choiceButton);
+  const result = checkWord(beforeWord, afterWord, alphabet);
   firstWord.changedWord = result;
   result.replaceAll("", " ");
   answer.innerText = result;
@@ -65,7 +65,6 @@ function pushAlphabet(e) {
   if (e.target.className === "alphabet") {
     const word = e.target.innerText.toLowerCase();
     e.target.style.opacity = "0";
-    e.target.setAttribute("disabled", "");
-    printWord(word, choiceButton);
+    printWord(word);
   }
 }
