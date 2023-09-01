@@ -10,13 +10,17 @@
     <h1>Hang Man Game</h1>
     <div class="result-screen screen">
       <h2>result</h2>
-      <img class="result__image" src="./images/hang-1.png" alt="" />
+      <img class="result__image" alt="" />
     </div>
     <div class="choice-screen screen">
+      <div class="gameover-screen">
+        <p class="gameover__body">GAME OVER</p>
+        <div><button class="gameover__retry">retry</button></div>
+      </div>
       <h2 class="choice__title">choice</h2>
       <div class="choice__body-wrapper">
         <div class="choice__upper-wrapper">
-          <p>chances: 7</p>
+          <p class="choice__chance">chances: 7</p>
           <p class="choice__time">time: 60</p>
           <button class="choice__start__button">start</button>
         </div>
