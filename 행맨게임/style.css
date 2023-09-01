@@ -1,0 +1,112 @@
+@font-face {
+  font-family: "Pretendard-Regular";
+  src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
+    format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+:root {
+  --crl-red: crimson;
+  --crl-blue: dodgerblue;
+  --crl-white: whitesmoke;
+  --crl-green: palegreen;
+}
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+* {
+  padding: 0;
+  margin: 0;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  min-height: 100vh;
+  font-family: "Pretendard-Regular";
+  background: slategray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  gap: 20px;
+  color: var(--crl-white);
+  flex-wrap: wrap;
+  text-align: center;
+}
+h1 {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 30px;
+}
+.screen {
+  width: 400px;
+  height: 400px;
+  background: powderblue;
+  border-radius: 10px;
+  padding: 0.5em;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+    rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  color: var(--crl-blue);
+  font-weight: bold;
+}
+.result-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+.result__image {
+  width: 180px;
+}
+.choice-screen {
+  display: flex;
+  flex-direction: column;
+  padding: 1em 2em;
+  gap: 1em;
+}
+.choice__body-wrapper {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.choice__upper-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.choice__alphabet-wrapper {
+  display: grid;
+  grid-template-columns: repeat(7, 40px);
+  row-gap: 4px;
+  place-content: center;
+}
+.choice__start__button {
+  background: var(--crl-blue);
+  border: 2px solid transparent;
+  border-radius: 5px;
+  color: var(--crl-white);
+  padding: 0.3em 0.7em;
+  transition: 0.2s;
+}
+.choice__start__button:hover {
+  background: var(--crl-white);
+  color: var(--crl-blue);
+  border: 2px solid var(--crl-blue);
+}
+.alphabet {
+  border: 1px solid var(--crl-blue);
+  background: var(--crl-white);
+  width: 30px;
+  aspect-ratio: 1;
+  border-radius: 5px;
+  transition: 0.1s;
+}
+.alphabet:hover {
+  background: var(--crl-blue);
+  color: var(--crl-white);
+}
