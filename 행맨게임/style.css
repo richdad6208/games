@@ -102,6 +102,8 @@ h1 {
   color: var(--crl-blue);
   border: 2px solid var(--crl-blue);
 }
+.choice__loading {
+}
 .alphabet {
   border: 1px solid var(--crl-blue);
   background: var(--crl-white);

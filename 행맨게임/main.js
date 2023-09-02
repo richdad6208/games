@@ -8,6 +8,7 @@ const pushAlphabetWrapper = document.querySelector(".choice__alphabet-wrapper");
 const answer = document.querySelector(".choice__middle__body");
 const leftChance = document.querySelector(".choice__chance");
 const gameOver = document.querySelector(".gameover-screen");
+const choiceLoading = document.querySelector(".choice__loading");
 
 const firstWord = {
   questionWord: "",
@@ -23,13 +24,11 @@ const firstWord = {
 };
 
 function printWord(alphabet) {
-  console.log(beforeWord, afterWord);
   const beforeWord = firstWord.questionWord;
-  const afterWord = firstWord.changedWord;
+  const afterWord = firstWord.changedWord.replaceAll(" ", "");
   const result = checkWord(beforeWord, afterWord, alphabet);
-  firstWord.changedWord = result;
-  result.replaceAll("", " ");
-  answer.innerText = result;
+  firstWord.changedWord = result.replaceAll("", " ");
+  answer.innerText = firstWord.changedWord;
 }
 function checkWord(beforeWord, afterWord, alphabet) {
   let arr = [];
@@ -43,9 +42,23 @@ function checkWord(beforeWord, afterWord, alphabet) {
   arr.forEach((item) => afterArr.splice(item, 1, alphabet));
   return afterArr.join("");
 }
+
 async function decreaseTime() {
   firstWord.leftTime = 60;
   startButton.style.opacity = "0";
+  const rotating = [
+    {
+      transform: "rotate(0)",
+    },
+    {
+      transform: "rotate(360deg)",
+    },
+  ];
+  const timing = {
+    duration: 1000,
+    iterations: Infinity,
+  };
+  choiceLoading.animate(rotating, timing);
   while (firstWord.leftTime > 0) {
     await sleep(1000);
     firstWord.leftTime--;
@@ -63,15 +76,25 @@ function reactiveAlphabetButton() {
   });
 }
 
-function start(e) {
+function initialSetting() {
+  firstWord.choiceWord();
+  answer.innerHTML = firstWord.changedWord.replaceAll("", " ");
+  firstWord.leftCount = 7;
+  leftChance.innerHTML = "chances: 7";
   matchChangeToResult(7);
   reactiveAlphabetButton();
-  firstWord.choiceWord();
+}
+
+function start(e) {
+  initialSetting();
   decreaseTime();
   pushAlphabetWrapper.addEventListener("click", pushAlphabet);
 }
 function retry(e) {
-  if (e.target.className === "gameover__retry") {
+  if (
+    e.target.className === "gameover__retry" ||
+    e.target.parentNode.className === "gameover__retry"
+  ) {
     gameOver.style.left = "2000px";
     gameOver.style.opacity = "0";
     start();
