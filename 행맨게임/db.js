@@ -5,38 +5,38 @@ export const words = [
   },
   {
     id: 2,
-    word: "artist",
+    word: "smart",
   },
   {
     id: 3,
-    word: "badminton",
+    word: "cute",
   },
   {
     id: 4,
-    word: "geography",
+    word: "big",
   },
   {
     id: 5,
-    word: "document",
+    word: "cool",
   },
   {
     id: 6,
-    word: "homework",
+    word: "calm",
   },
   {
     id: 7,
-    word: "meeting",
+    word: "busy",
   },
   {
     id: 8,
-    word: "princess",
+    word: "fast",
   },
   {
     id: 9,
-    word: "salesman",
+    word: "fit",
   },
   {
     id: 10,
-    word: "sunflower",
+    word: "fair",
   },
 ];
