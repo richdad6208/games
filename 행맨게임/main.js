@@ -16,7 +16,8 @@ const firstWord = {
   changedWord: "",
   leftCount: 7,
   leftTime: 60,
-  gameOnBoolean: true,
+  correctBoolean: false,
+  gameOnBoolean: false,
   wrongBoolean: false,
   choiceWord() {
     const randomNumber = Math.ceil(Math.random() * 10);
@@ -34,6 +35,7 @@ function start(e) {
 }
 
 function initialSetting() {
+  firstWord.correctBoolean = false;
   firstWord.choiceWord();
   firstWord.leftTime = 60;
   timeLeft.innerText = "time: " + firstWord.leftTime;
@@ -45,33 +47,37 @@ function initialSetting() {
 }
 
 async function decreaseTime() {
-  startButton.style.display = "none";
-  choiceLoading.style.opacity = "1";
-  choiceLoading.style.zIndex = "initial";
-  const rotating = [
-    {
-      transform: "rotate(0)",
-    },
-    {
-      transform: "rotate(360deg)",
-    },
-  ];
-  const timing = {
-    duration: 1000,
-    iterations: Infinity,
-  };
-  choiceLoading.animate(rotating, timing);
-  while (firstWord.leftTime > 0 && firstWord.gameOnBoolean === true) {
-    await sleep(1000);
-    firstWord.leftTime--;
-    timeLeft.innerText = `time: ${firstWord.leftTime}`;
+  if (firstWord.gameOnBoolean) {
+    startButton.style.display = "none";
+    choiceLoading.style.opacity = "1";
+    choiceLoading.style.zIndex = "initial";
+    const rotating = [
+      {
+        transform: "rotate(0)",
+      },
+      {
+        transform: "rotate(360deg)",
+      },
+    ];
+    const timing = {
+      duration: 1000,
+      iterations: Infinity,
+    };
+    choiceLoading.animate(rotating, timing);
+    while (firstWord.leftTime > 0 && firstWord.gameOnBoolean) {
+      await sleep(1000);
+      firstWord.leftTime--;
+      timeLeft.innerText = `time: ${firstWord.leftTime}`;
+    }
+    if (!firstWord.correctBoolean) {
+      firstWord.wrongBoolean = true;
+    }
+    firstWord.gameOnBoolean = false;
+    checkChance();
+    startButton.style.display = "block";
+    choiceLoading.style.zIndex = "-1";
+    choiceLoading.style.opacity = "0";
   }
-  firstWord.gameOnBoolean = false;
-  firstWord.wrongBoolean = true;
-  checkChance();
-  startButton.style.display = "block";
-  choiceLoading.style.zIndex = "-1";
-  choiceLoading.style.opacity = "0";
 }
 
 startButton.addEventListener("click", start);
@@ -89,6 +95,7 @@ function pushAlphabet(e) {
       if (firstWord.leftCount === 0) {
         firstWord.gameOnBoolean = false;
         firstWord.wrongBoolean = true;
+        firstWord.correctBoolean = false;
       }
       checkChance();
       checkAnswer();
@@ -97,21 +104,26 @@ function pushAlphabet(e) {
 }
 
 function matchChangeToResult(num) {
-  resultImage.setAttribute("src", `./images/hang-${num}.png`);
+  if (num !== 7) {
+    resultImage.setAttribute("src", `./images/hang-${num}.png`);
+  } else {
+    resultImage.setAttribute("src", "");
+  }
 }
 
-function checkChance(e) {
-  if (firstWord.wrongBoolean === true && firstWord.gameOnBoolean === false) {
+function checkChance() {
+  if (firstWord.wrongBoolean && !firstWord.gameOnBoolean) {
     resultImage.setAttribute("src", `./images/hang-0.png`);
     gameOver.style.left = "0";
     gameOver.style.opacity = "1";
   }
 }
 function checkAnswer() {
-  if (firstWord.changedWord.includes("_")) {
+  if (!firstWord.changedWord.includes("_")) {
     success.style.display = "flex";
-    firstWord.gameOnBoolean = false;
+    firstWord.correctBoolean = true;
     firstWord.wrongBoolean = false;
+    firstWord.gameOnBoolean = false;
     startButton.style.display = "block";
     choiceLoading.style.zIndex = "-1";
     choiceLoading.style.opacity = "0";
@@ -145,23 +157,26 @@ function reactiveAlphabetButton() {
   });
 }
 
-gameOver.addEventListener("click", retry);
+gameOver.addEventListener("click", gameOverRetry);
 
-async function retry(e) {
+async function gameOverRetry(e) {
   if (
     e.target.className === "gameover__retry" ||
     e.target.parentNode.className === "gameover__retry"
   ) {
-    gameOver.style.left = "2000px";
+    gameOver.style.left = "4000px";
     gameOver.style.opacity = "0";
     answer.innerText = "게임을 시작하세요";
     initialSetting();
   }
+}
+success.addEventListener("click", correctRetry);
+async function correctRetry(e) {
   if (
     e.target.className === "success__retry" ||
     e.target.parentNode.className === "success__retry"
   ) {
-    console.log(e);
+    firstWord.gameOnBoolean = false;
     answer.innerText = "게임을 시작하세요";
     initialSetting();
     success.style.opacity = "0";
@@ -170,5 +185,3 @@ async function retry(e) {
     success.style.opacity = "1";
   }
 }
-
-success.addEventListener("click", retry);

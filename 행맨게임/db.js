@@ -1,11 +1,11 @@
 export const words = [
   {
     id: 1,
-    word: " art",
+    word: "art",
   },
   {
     id: 2,
-    word: "smart",
+    word: "pig",
   },
   {
     id: 3,
@@ -37,6 +37,6 @@ export const words = [
   },
   {
     id: 10,
-    word: "fair",
+    word: "cat",
   },
 ];
