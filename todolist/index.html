@@ -10,28 +10,28 @@
   <body>
     <h1>Todo List Board</h1>
     <div class="container">
-      <form>
+      <form class="formInHead">
         <div class="input-wrapper">
           <input type="text" placeholder="검색" />
           <button class="input__button">검색</button>
         </div class="input-wrapper">
         <div class="input-wrapper">
-          <input type="text" placeholder="투두리스트 추가" />
-          <button class="input__button addItemButton">추가</button>
+          <input class="addTodoInput" type="text" placeholder="투두리스트 추가" />
+          <button class="input__button addTodoButton">추가</button>
         </div>
       </form>
       <div class="todo">
         <ul class="todo__list">
           <li class="todo__item">
-            체육관 가기
+            야호<span class="todo__delete">❌</span>
           </li>
           <li class="todo__item">
-            공부하기
-          </li>
-          <li class="todo__item">
-            프로젝트 만들기
+            야호<span class="todo__delete">❌</span>
           </li>
         </ul>
+      </div>
+      <div class="pagenation">
+        <span class="pagenation__number">1</span>
       </div>
     </div>
     <script src="./script/App.mjs" type="module"></script>

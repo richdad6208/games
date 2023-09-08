@@ -43,10 +43,10 @@ ul {
 .container {
   background-color: var(--crl-white);
   width: min(500px, 80%);
-  height: 50%;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
     rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  padding-block: 1em;
 }
 h1 {
   font-size: 35px;
@@ -55,8 +55,8 @@ h1 {
 form {
   display: flex;
   flex-direction: column;
-  padding: 1em;
   gap: 10px;
+  padding-bottom: 1em;
 }
 .input-wrapper {
   width: 80%;
@@ -91,10 +91,32 @@ button {
   padding-inline: 1em;
 }
 .todo__item {
-  padding: 0.5em 1em;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5em 2em;
   background: white;
   border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
   margin-bottom: 10px;
   font-size: 18px;
+}
+.todo__delete {
+  cursor: pointer;
+}
+
+.pagenation {
+  text-align: center;
+}
+.pagenation__number {
+  display: inline-block;
+  background: var(--crl-green);
+  width: 25px;
+  color: whitesmoke;
+  border-radius: 6px;
+  aspect-ratio: 1;
+  cursor: pointer;
+  margin-right: 4px;
+}
+.pagenation__direction {
+  cursor: pointer;
 }
