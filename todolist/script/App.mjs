@@ -5,11 +5,24 @@ function saveTodo() {
 }
 
 function activatePagenation(e) {
-  $pagenation.children.forEach((page) =>
-    page.classList.toggle("active", e.target)
-  );
+  let idx = null;
+  [...$pagenation.children].forEach((page) => {
+    page.classList.toggle("active", e.target === page);
+    idx = Number(e.target.innerText);
+  });
+  showPagenation(idx);
 }
 
+function showPagenation(num) {
+  $pagenation.forEach((item) => item.classList.remove("active"));
+  $pagenation.children[num].classList.add("active");
+  [...$todos.children].forEach((item) => item.classList.remove("active"));
+  let arr = [...$todos.children];
+
+  for (let i = 5 * (num - 1); i < 5 * num; i++) {
+    arr[i]?.classList.add("active");
+  }
+}
 function createPagenation(num) {
   const calculatePageCount = Math.ceil(num / PAGE_VOLUME);
   $pagenation.innerHTML = "";
@@ -29,6 +42,7 @@ function removeTodoInInput() {
 function deleteTodoInList(e) {
   if (e.target.className === "todo__delete") {
     $todos.removeChild(e.target.parentNode);
+    showPagenation(Math.ceil($todos.children.length / 5));
   }
 }
 
@@ -46,6 +60,7 @@ const $pagenation = document.querySelector(".pagenation");
 const PAGE_VOLUME = 5;
 
 function main() {
+  showPagenation(Math.ceil($todos.children.length / 5));
   $formInHead.addEventListener("submit", (e) => {
     e.preventDefault();
   });
@@ -59,6 +74,7 @@ function main() {
     e.preventDefault();
     addTodoItem(saveTodo());
     createPagenation(countTodos());
+    showPagenation(Math.ceil($todos.children.length / 5));
   });
 
   $pagenation.addEventListener("click", activatePagenation);
