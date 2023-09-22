@@ -6,11 +6,29 @@ function saveTodo() {
   return addTodoInputValue;
 }
 
+function searchTodo(e) {
+  const searchKeyword = e.target.value;
+  if (searchKeyword.length === 0) {
+    return showPagenation(1);
+  }
+  [...$todos.children].forEach((item) => item.classList.remove("active"));
+  let temp = [...$todos.children].filter((item) =>
+    item.firstChild.data.split(" ").pop().includes(searchKeyword)
+  );
+  temp.forEach((item) => {
+    item.classList.add("active");
+  });
+  console.log(temp);
+}
+
 function activatePagenation(e) {
   let currentPageNumber = null;
-  [...$pagenation.children].forEach((page, index) => {
-    page.classList.toggle("active", e.target === page);
-    currentPageNumber = index;
+  console.log([...$pagenation.children]);
+  [...$pagenation.children].forEach((page, index, arr) => {
+    page.classList.toggle("active", page === e.target);
+    if (arr.indexOf(e.target) === index) {
+      currentPageNumber = index + 1;
+    }
   });
   showPagenation(currentPageNumber);
 }
@@ -18,16 +36,20 @@ function activatePagenation(e) {
 function showPagenation(pageNumber) {
   [...$pagenation.children].forEach((item) => item.classList.remove("active"));
   $pagenation.children[pageNumber - 1].classList.add("active");
-  showTodos();
+  showTodos(pageNumber);
 }
 
-function showTodos() {
+function showTodos(pageNumber = 0) {
   let currentPageVolume = Math.ceil($todos.children.length / PAGE_VOLUME);
   [...$todos.children].forEach((item) => item.classList.remove("active"));
-  let arr = [...$todos.children];
+  let temp = [...$todos.children];
 
-  for (let i = 5 * (currentPageVolume - 1); i < 5 * currentPageVolume; i++) {
-    arr[i]?.classList.add("active");
+  for (
+    let i = 5 * ((pageNumber || currentPageVolume) - 1);
+    i < 5 * (pageNumber || currentPageVolume);
+    i++
+  ) {
+    temp[i]?.classList.add("active");
   }
 }
 function createPagenation() {
@@ -59,6 +81,7 @@ const $todos = document.querySelector(".todo__list");
 const $addTodoInput = document.querySelector(".addTodoInput");
 const $formInHead = document.querySelector(".formInHead");
 const $pagenation = document.querySelector(".pagenation");
+const $searchInput = document.querySelector(".searchInput");
 const PAGE_VOLUME = 5;
 
 function main() {
@@ -77,6 +100,7 @@ function main() {
     addTodoItem(saveTodo());
     createPagenation();
   });
+  $searchInput.addEventListener("input", searchTodo);
 
   $pagenation.addEventListener("click", activatePagenation);
 }
