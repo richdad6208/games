@@ -1,0 +1,26 @@
+html,
+body {
+  height: 100%;
+}
+body {
+  font-family: "pretendard", sans-serif;
+  display: flex;
+  gap: 30px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+button {
+  background: dodgerblue;
+  color: white;
+  font-weight: bolder;
+  border: none;
+  border-radius: 10px;
+  padding: 0.5em 0.8em;
+}
+input {
+  padding: 0.5em 1em;
+  border-radius: 10px;
+  outline: none;
+  border: 1px solid dodgerblue;
+}
